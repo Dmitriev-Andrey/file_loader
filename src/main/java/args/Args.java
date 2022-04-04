@@ -9,7 +9,7 @@ import com.beust.jcommander.converters.PathConverter;
 
 public class Args {
 
-    @Parameter(description = "List of URLs to download",
+    @Parameter(description = "List of download URLs",
             required = true)
     private List<String> urls = new ArrayList<>();
 

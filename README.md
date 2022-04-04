@@ -22,7 +22,7 @@ java -jar target/file_loader.jar -r 2 -l /home/marbok/tmp/ -t 2 http://ftp.gnu.o
 
 ### Arguments
 ```sh
-Usage: file_loader [options] List of URLs to download
+Usage: file_loader [options] List of download URLs
   Options:
     --help, -h
 
