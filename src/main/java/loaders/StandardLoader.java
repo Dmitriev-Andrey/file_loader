@@ -7,9 +7,9 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Path;
 
-public class HttpLoader extends Loader {
+public class StandardLoader extends Loader {
 
-    public HttpLoader(Path downloadPath) {
+    public StandardLoader(Path downloadPath) {
         super(downloadPath);
     }
 

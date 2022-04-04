@@ -4,10 +4,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import args.Args;
 import loaders.LoaderFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,11 +37,10 @@ class FullProgramTest {
 
     @Test
     void download() throws IOException {
-        Args arguments = Args.parsArgs("-l", tmpFolder, "-t", "2", "http://ftp.gnu.org/gnu/wget/wget-1.5.3.tar.gz",
-                "https://ftp.gnu.org/gnu/=README");
-        LoaderFactory loaderFactory = new LoaderFactory(arguments.getLocation());
-        ComplexLoader loader = new ComplexLoader(loaderFactory, arguments.getRetries(), arguments.getThreads());
-        loader.download(arguments.getUrls());
+        LoaderFactory loaderFactory = new LoaderFactory(Path.of(tmpFolder));
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ComplexLoader loader = new ComplexLoader(loaderFactory, executorService, 1);
+        loader.download(List.of("http://ftp.gnu.org/gnu/wget/wget-1.5.3.tar.gz", "https://ftp.gnu.org/gnu/=README"));
 
         List<Path> files = Files.list(Path.of(tmpFolder))
                 .collect(Collectors.toList());

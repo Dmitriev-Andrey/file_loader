@@ -1,7 +1,6 @@
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
@@ -20,10 +19,10 @@ public class ComplexLoader {
     private final LoaderFactory loaderFactory;
     private final ExecutorService executor;
 
-    public ComplexLoader(LoaderFactory loaderFactory, int retries, int nThreads) {
+    public ComplexLoader(LoaderFactory loaderFactory, ExecutorService executor, int retries) {
         this.retries = retries;
         this.loaderFactory = loaderFactory;
-        this.executor = Executors.newFixedThreadPool(nThreads);
+        this.executor = executor;
     }
 
     public void download(List<String> urls) {

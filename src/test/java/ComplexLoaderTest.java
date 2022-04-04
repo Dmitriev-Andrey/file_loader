@@ -1,4 +1,6 @@
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import exception.DownloadException;
 import loaders.Loader;
@@ -18,15 +20,16 @@ class ComplexLoaderTest {
     private ComplexLoader complexLoader;
     private LoaderFactory loaderFactory;
     private Loader loader;
+    private ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     @BeforeEach
-    void setUp() throws DownloadException {
+    void setUp() {
         loader = mock(Loader.class);
 
         loaderFactory = mock(LoaderFactory.class);
         when(loaderFactory.getLoader(eq(Protocol.HTTP))).thenReturn(loader);
 
-        complexLoader = new ComplexLoader(loaderFactory, 2, 5);
+        complexLoader = new ComplexLoader(loaderFactory, executorService, 5);
     }
 
     @Test

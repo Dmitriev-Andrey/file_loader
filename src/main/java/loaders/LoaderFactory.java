@@ -11,9 +11,9 @@ public class LoaderFactory {
     private final EnumMap<Protocol, Supplier<Loader>> loaderMap = new EnumMap<>(Protocol.class);
 
     {
-        loaderMap.put(Protocol.HTTP, this::buildHttpLoader);
-        loaderMap.put(Protocol.HTTPS, this::buildHttpLoader);
-        loaderMap.put(Protocol.FTP, this::buildFtpLoader);
+        loaderMap.put(Protocol.HTTP, this::buildStandardLoader);
+        loaderMap.put(Protocol.HTTPS, this::buildStandardLoader);
+        loaderMap.put(Protocol.FTP, this::buildStandardLoader);
         loaderMap.put(Protocol.SFTP, this::buildSftpLoader);
     }
 
@@ -28,15 +28,11 @@ public class LoaderFactory {
         return loaderBuilder.get();
     }
 
-    private HttpLoader buildHttpLoader() {
-        return new HttpLoader(path);
+    private StandardLoader buildStandardLoader() {
+        return new StandardLoader(path);
     }
 
     private SftpLoader buildSftpLoader() {
         return new SftpLoader(path);
-    }
-
-    private FtpLoader buildFtpLoader() {
-        return new FtpLoader(path);
     }
 }

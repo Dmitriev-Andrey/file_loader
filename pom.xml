@@ -35,6 +35,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                            <finalName>file_loader</finalName>
                             <archive>
                                 <manifest>
                                     <mainClass>
@@ -45,6 +46,7 @@
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
+                            <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                     </execution>
                 </executions>
@@ -53,12 +55,14 @@
     </build>
 
     <dependencies>
+        <!-- args -->
         <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
             <version>1.82</version>
         </dependency>
 
+        <!-- sftp -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-vfs2</artifactId>
@@ -69,12 +73,6 @@
             <artifactId>jsch</artifactId>
             <version>0.1.55</version>
         </dependency>
-        <dependency>
-            <groupId>commons-net</groupId>
-            <artifactId>commons-net</artifactId>
-            <version>3.6</version>
-        </dependency>
-
 
         <!-- logger -->
         <dependency>

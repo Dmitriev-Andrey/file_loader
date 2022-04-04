@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.converters.PathConverter;
 
@@ -15,17 +14,20 @@ public class Args {
     private List<String> urls = new ArrayList<>();
 
     @Parameter(names = {"--retries", "-r"},
-            description = "Count of retries. Default = 1")
+            description = "Count of retries.")
     private int retries = 1;
 
     @Parameter(names = {"--location", "-l"},
-            description = "Download location. Default - current location",
+            description = "Download location.",
             converter = PathConverter.class)
     private Path location = Path.of(System.getProperty("user.dir"));
 
     @Parameter(names = {"--threads", "-t"},
-            description = "Count of thread for working. Default = 1")
+            description = "Count of thread for working")
     private int threads = 1;
+
+    @Parameter(names = {"--help", "-h"}, help = true)
+    private boolean help;
 
     public List<String> getUrls() {
         return urls;
@@ -43,12 +45,7 @@ public class Args {
         return threads;
     }
 
-    public static Args parsArgs(String... args) {
-        Args arguments = new Args();
-        JCommander.newBuilder()
-                .addObject(arguments)
-                .build()
-                .parse(args);
-        return arguments;
+    public boolean isHelp() {
+        return help;
     }
 }
