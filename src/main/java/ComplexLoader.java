@@ -28,18 +28,14 @@ public class ComplexLoader {
     public void download(List<URL> urls) {
         List<? extends Future<?>> futures = urls.stream()
                 .distinct()
-                .map(url ->
-                        new Thread(() -> {
-                            Loader loader = loaderFactory.getLoader(url.getProtocol());
-                            download(url, loader);
-                        }))
+                .map(url -> new Thread(() -> download(url)))
                 .map(executor::submit)
                 .collect(Collectors.toList());
 
         for (var future : futures) {
             waitFuture(future);
         }
-        LOG.info("Success");
+        LOG.info("Done!");
     }
 
     private void waitFuture(Future<?> future) {
@@ -50,23 +46,23 @@ public class ComplexLoader {
         }
     }
 
-    private void download(URL url, Loader loader) {
+    private void download(URL url) {
+        Loader loader = loaderFactory.getLoader(url.getProtocol());
         int attempt = 1;
         boolean download = false;
         while (attempt <= retries && !download) {
-            LOG.info("Download from " + url.getFullUrl() + ". Attempt: " + attempt);
-            attempt++;
+            LOG.info("Download from {}. Attempt: {}", url.getFullUrl(), attempt);
             try {
                 loader.download(url);
+                LOG.info("File from {} is loaded", url.getFullUrl());
                 download = true;
             } catch (DownloadException e) {
+                attempt++;
                 LOG.warn("Problem with downloading a file from " + url.getFullUrl(), e);
             }
         }
         if (!download) {
-            LOG.error("Can't download file from " + url.getFullUrl());
-        } else {
-            LOG.info("File from " + url.getFullUrl() + " is loaded");
+            LOG.error("Can't download file from {}", url.getFullUrl());
         }
     }
 }
