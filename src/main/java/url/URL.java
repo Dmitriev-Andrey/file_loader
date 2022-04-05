@@ -2,6 +2,9 @@ package url;
 
 import exception.UnsupportedProtocolException;
 
+/**
+ * Extract and store information from url.
+ */
 public class URL {
 
     private final String fullUrl;

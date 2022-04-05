@@ -25,12 +25,11 @@ public class ComplexLoader {
         this.executor = executor;
     }
 
-    public void download(List<String> urls) {
+    public void download(List<URL> urls) {
         List<? extends Future<?>> futures = urls.stream()
                 .distinct()
-                .map(urlStr ->
+                .map(url ->
                         new Thread(() -> {
-                            URL url = new URL(urlStr);
                             Loader loader = loaderFactory.getLoader(url.getProtocol());
                             download(url, loader);
                         }))

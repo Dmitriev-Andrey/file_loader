@@ -19,6 +19,10 @@ public class Main {
             return;
         }
 
+        runLoader(arguments);
+    }
+
+    private static void runLoader(Args arguments) {
         LoaderFactory loaderFactory = new LoaderFactory(arguments.getLocation());
         ExecutorService executorService = Executors.newFixedThreadPool(arguments.getThreads());
         ComplexLoader loader = new ComplexLoader(loaderFactory, executorService, arguments.getRetries());

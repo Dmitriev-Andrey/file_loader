@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import url.Protocol;
+import url.URL;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -34,6 +35,6 @@ class ComplexLoaderTest {
 
     @Test
     void downloadSuccess() {
-        complexLoader.download(List.of("http://example.com/file"));
+        complexLoader.download(List.of(new URL("http://example.com/file")));
     }
 }

@@ -13,6 +13,7 @@ import loaders.LoaderFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import url.URL;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,7 +41,7 @@ class FullProgramTest {
         LoaderFactory loaderFactory = new LoaderFactory(Path.of(tmpFolder));
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         ComplexLoader loader = new ComplexLoader(loaderFactory, executorService, 1);
-        loader.download(List.of("http://ftp.gnu.org/gnu/wget/wget-1.5.3.tar.gz", "https://ftp.gnu.org/gnu/=README"));
+        loader.download(List.of(new URL("http://ftp.gnu.org/gnu/wget/wget-1.5.3.tar.gz"), new URL("https://ftp.gnu.org/gnu/=README")));
 
         List<Path> files = Files.list(Path.of(tmpFolder))
                 .collect(Collectors.toList());

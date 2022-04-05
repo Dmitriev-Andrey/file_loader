@@ -4,14 +4,17 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import args.converters.UrlConverter;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.converters.PathConverter;
+import url.URL;
 
 public class Args {
 
     @Parameter(description = "List of download URLs",
+            converter = UrlConverter.class,
             required = true)
-    private List<String> urls = new ArrayList<>();
+    private List<URL> urls = new ArrayList<>();
 
     @Parameter(names = {"--retries", "-r"},
             description = "Count of retries.")
@@ -29,7 +32,7 @@ public class Args {
     @Parameter(names = {"--help", "-h"}, help = true)
     private boolean help;
 
-    public List<String> getUrls() {
+    public List<URL> getUrls() {
         return urls;
     }
 
